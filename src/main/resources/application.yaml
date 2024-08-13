@@ -36,3 +36,5 @@ logging:
     blog: WARN
 server:
   port: 8080
+
+default.admin.pass: secret
