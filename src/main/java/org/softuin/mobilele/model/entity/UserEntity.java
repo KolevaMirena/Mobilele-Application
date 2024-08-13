@@ -8,6 +8,7 @@ import jakarta.persistence.*;
 public class UserEntity extends BaseEntity {
 
 
+    @Column(unique = true)
     private String email;
     private String password;
     private String firstName;
