@@ -10,10 +10,8 @@ public class ModelEntity extends BaseEntity {
 
 
     private String name;
-
     @Enumerated(EnumType.STRING)
     private ModelCategoryEnum modelCategory;
-
 
     @ManyToOne
     private BrandEntity brandEntity;

@@ -1,12 +1,12 @@
 package org.softuin.mobilele.web;
 
 import org.softuin.mobilele.model.dto.CreateOfferDTO;
+import org.softuin.mobilele.model.enums.EngineEnum;
+import org.softuin.mobilele.service.BrandService;
 import org.softuin.mobilele.service.OfferService;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequestMapping("/offers")
@@ -14,9 +14,10 @@ public class OfferController {
 
 
     private final OfferService offerService;
-
-    public OfferController(OfferService offerService){
+    private final BrandService brandService;
+    public OfferController(OfferService offerService, BrandService brandService){
         this.offerService = offerService;
+        this.brandService = brandService;
     }
 
 
@@ -26,13 +27,21 @@ public class OfferController {
         return "offers";
     }
 
+
+    @ModelAttribute("engines")
+    public EngineEnum[] engines(){
+        return EngineEnum.values();
+    }
+
     @GetMapping("/add")
-    public String addOffer(){
+    public String addOffer(Model model){
+
+        model.addAttribute("brands", brandService.getAllBrands());
 
         return "offer-add";
     }
 
-    @PostMapping("")
+    @PostMapping("/add")
     public String addOffer(CreateOfferDTO createOfferDTO){
 
         offerService.createOffer(createOfferDTO);
@@ -41,16 +50,11 @@ public class OfferController {
 
     }
 
-
     @GetMapping("/{uuid}/details")
     public String details(@PathVariable("uuid") String uuid ){
 
         return "details";
-
-
     }
-
-
 
 }
 
