@@ -37,6 +37,9 @@ logging:
         type:
           descriptor: TRACE
         SQL: DEBUG
+        ORM:
+          JDBC:
+            bind: TRACE
       nodeValue: WARN
     blog: WARN
 server:

@@ -3,6 +3,7 @@ package org.softuin.mobilele.model.dto;
 import jakarta.validation.constraints.*;
 import org.softuin.mobilele.model.enums.EngineEnum;
 import org.softuin.mobilele.model.enums.TransmissionEnum;
+import org.softuin.mobilele.model.validation.YearNotInTheFuture;
 
 import java.math.BigDecimal;
 
@@ -28,6 +29,7 @@ public record CreateOfferDTO (@NotEmpty
                                       @Positive(message = "Year must be positive number!")
                                       @Min(value = 1990)
                                       @NotNull(message = "Year could not be empty!")
+                                              @YearNotInTheFuture(message = "The year should not be in the future!")
                               Integer year){
 
 
