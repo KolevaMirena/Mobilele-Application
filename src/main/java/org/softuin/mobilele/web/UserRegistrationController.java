@@ -1,6 +1,7 @@
 package org.softuin.mobilele.web;
 
 
+import jakarta.validation.Valid;
 import org.softuin.mobilele.model.dto.UserRegistrationDTO;
 import org.softuin.mobilele.service.UserService;
 import org.springframework.stereotype.Controller;
