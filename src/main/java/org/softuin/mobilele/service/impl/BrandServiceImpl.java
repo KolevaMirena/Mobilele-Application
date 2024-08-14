@@ -31,7 +31,7 @@ public class BrandServiceImpl implements BrandService {
 
         for (ModelEntity modelEntity : modelRepository.findAll()) {
 
-            if(!brands.containsKey(modelEntity.getBrandEntity().getName()){
+            if(!brands.containsKey(modelEntity.getBrandEntity().getName())){
 
                 brands.put(modelEntity.getBrandEntity().getName(), new BrandDTO(modelEntity.getBrandEntity().getName(), new ArrayList<>()));
 
