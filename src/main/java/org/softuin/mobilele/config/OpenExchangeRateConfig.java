@@ -19,7 +19,15 @@ public class OpenExchangeRateConfig {
 
     private String path;
 
+    private boolean enabled;
 
+    public boolean isEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
+    }
 
     public String getPath() {
         return path;
@@ -69,6 +77,8 @@ public class OpenExchangeRateConfig {
                 ", symbols=" + symbols +
                 ", host='" + host + '\'' +
                 ", schema='" + schema + '\'' +
+                ", path='" + path + '\'' +
+                ", enabled=" + enabled +
                 '}';
     }
 }

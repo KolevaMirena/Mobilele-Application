@@ -28,6 +28,7 @@ public class RatesInit implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
 
+        if(openExchangeRateConfig.isEnabled()){
         Map<String, String> requestParams = Map.of("app_id", openExchangeRateConfig.getAppId(),
                     "symbols", String.join(",", openExchangeRateConfig.getSymbols()));
 
@@ -40,5 +41,6 @@ public class RatesInit implements CommandLineRunner {
         ExchangeRatesDTO exchangeRatesDTO = restTemplate.getForObject(openExchangeRateUrl, ExchangeRatesDTO.class, requestParams);
 
         currencyService.refreshRate(exchangeRatesDTO);
+        }
     }
 }
