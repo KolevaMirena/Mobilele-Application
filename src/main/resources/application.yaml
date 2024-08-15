@@ -46,3 +46,12 @@ server:
   port: 8080
 
 default.admin.pass: secret
+
+open.exchange.rates:
+  schema: https
+  host: openexchangerates.org
+  path:   /api/latest.json
+  app_id: ${APP_ID:test}
+  symbols: EUR,BGN
+
+
