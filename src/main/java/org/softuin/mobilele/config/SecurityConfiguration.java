@@ -1,8 +1,10 @@
 package org.softuin.mobilele.config;
 
 
+import org.softuin.mobilele.model.enums.UserRoleEnum;
 import org.softuin.mobilele.repository.UserRepository;
 import org.softuin.mobilele.service.impl.MobileleUserDetailService;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -15,6 +17,11 @@ import org.springframework.security.web.SecurityFilterChain;
 @Configuration
 public class SecurityConfiguration {
 
+    private final String rememberMeKey;
+
+    public SecurityConfiguration(@Value("mobilele.remember.me.key") String rememberMeKey) {
+        this.rememberMeKey = rememberMeKey;
+    }
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
@@ -27,6 +34,7 @@ public class SecurityConfiguration {
                             //allow login and registration url to anyone
                             .requestMatchers("/", "/users/login", "/users/register", "/users/login-error").permitAll()
                             .requestMatchers("/offers/all").permitAll()
+                            .requestMatchers("/brands").hasRole(UserRoleEnum.ADMIN.name())
                             //all other requests are authenticated
                             .anyRequest().authenticated();
 
@@ -50,6 +58,18 @@ public class SecurityConfiguration {
                             .logoutSuccessUrl("/")
                             .invalidateHttpSession(true);
 
+
+                }
+
+        ).rememberMe(
+
+                rememberMe ->{
+
+                    rememberMe.key(rememberMeKey)
+                            //should be the same as name of the checkbox in the template
+                            .rememberMeParameter("rememeberme")
+                            //the cookie name that will be set to the client
+                            .rememberMeCookieName("rememeberme");
 
                 }
 

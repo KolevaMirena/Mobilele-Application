@@ -1,7 +1,10 @@
 package org.softuin.mobilele.service.impl;
 
 import org.softuin.mobilele.model.entity.UserEntity;
+import org.softuin.mobilele.model.entity.UserRoleEntity;
 import org.softuin.mobilele.repository.UserRepository;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -30,11 +33,16 @@ public class MobileleUserDetailService implements UserDetailsService {
 
     private static UserDetails map(UserEntity userEntity){
 
-        UserDetails userDetails = User.withUsername(userEntity.getEmail())
+        return User.withUsername(userEntity.getEmail())
                 .password(userEntity.getPassword())
-                .authorities(List.of()) // TODO- add authorities
+                .authorities(userEntity.getUserRoles().stream().map(MobileleUserDetailService::map).toList())
                 .build();
+    }
 
-        return userDetails;
+    private static GrantedAuthority map(UserRoleEntity userRoleEntity){
+
+        return  new SimpleGrantedAuthority("ROLE_" + userRoleEntity.getRole().name());
+
+
     }
 }

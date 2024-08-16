@@ -42,13 +42,14 @@ logging:
             bind: TRACE
       nodeValue: WARN
       springframework:
-        security:
-          TRACE
+
     blog: WARN
 server:
   port: 8080
 
-default.admin.pass: secret
+mobilele:
+    default.admin.pass: secret
+    remember.me.key: ${REMEMBER_ME_KEY:secret}
 
 open.exchange.rates:
   schema: https
@@ -57,5 +58,6 @@ open.exchange.rates:
   app_id: ${APP_ID:test}
   symbols: EUR,BGN
   enabled: false
+
 
 
