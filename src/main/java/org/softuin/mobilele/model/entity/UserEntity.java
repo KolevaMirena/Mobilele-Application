@@ -2,6 +2,10 @@ package org.softuin.mobilele.model.entity;
 
 
 import jakarta.persistence.*;
+import org.softuin.mobilele.model.enums.UserRoleEnum;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "users")
@@ -15,6 +19,14 @@ public class UserEntity extends BaseEntity {
     private String lastName;
     private boolean active;
 
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "users_user_roles",
+            joinColumns = { @JoinColumn(name = "user_id") },
+            inverseJoinColumns = { @JoinColumn(name = "role_id") }
+    )
+    private List<UserRoleEntity> userRoles = new ArrayList<>();
 
     public String getEmail() {
         return email;
@@ -54,5 +66,13 @@ public class UserEntity extends BaseEntity {
 
     public void setActive(boolean active) {
         this.active = active;
+    }
+
+    public List<UserRoleEntity> getUserRoles() {
+        return userRoles;
+    }
+
+    public void setUserRoles(List<UserRoleEntity> userRoles) {
+        this.userRoles = userRoles;
     }
 }

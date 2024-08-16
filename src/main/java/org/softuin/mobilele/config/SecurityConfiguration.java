@@ -26,6 +26,7 @@ public class SecurityConfiguration {
                     authorizeRequest.requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
                             //allow login and registration url to anyone
                             .requestMatchers("/", "/users/login", "/users/register", "/users/login-error").permitAll()
+                            .requestMatchers("/offers/all").permitAll()
                             //all other requests are authenticated
                             .anyRequest().authenticated();
 
